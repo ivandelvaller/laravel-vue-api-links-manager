@@ -14,7 +14,12 @@ class LinkController extends Controller
      */
     public function index()
     {
-        return Link::orderBy('created_at', 'DESC')->get();
+        $links = Link::orderBy('created_at', 'ASC');
+
+        return response()->json([
+            "count" => $links->count(),
+            "links" => $links->get(),
+        ], 200);
     }
 
     /**
@@ -25,26 +30,23 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        $link = new Link();
-        $link->title = $request->link['title'];
-        $link->thumbnail = $request->link['thumbnail'];
-        $link->description = $request->link['description'];
-        $link->link = $request->link['link'];
-        $link->save();
+        $newLink = new Link();
 
-        return $link;
+        $newLink->title = $request['title'];
+        $newLink->thumbnail = $request['thumbnail'];
+        $newLink->description = $request['description'];
+        $newLink->link = $request['link'];
+
+        $newLink->save();
+
+        return response()->json(
+            [
+                "success" => true,
+                "link" => $newLink
+            ],
+            201
+        );
     }
-
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  \App\Models\Link  $link
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show(Link $link)
-    // {
-    //     //
-    // }
 
     /**
      * Update the specified resource in storage.
@@ -53,9 +55,53 @@ class LinkController extends Controller
      * @param  \App\Models\Link  $link
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Link $link)
+    public function update(Request $request, int $id)
     {
-        //
+        $keys = $request->keys();
+        $allowedUpdates = ["title", "thumbnail", "description", "link"];
+        $isValidOperation = true;
+
+        $linkToUpdate = Link::find($id);
+
+        if ($linkToUpdate) {
+            foreach ($keys as $key) {
+                if (!in_array($key, $allowedUpdates)) {
+                    $isValidOperation = false;
+                    break;
+                }
+            }
+        } else {
+            return response()->json(
+                [
+                    "success" => false,
+                    "error" => 'Resource was not found.'
+                ],
+                404
+            );
+        }
+
+        if ($isValidOperation) {
+            foreach ($keys as $key) {
+                $linkToUpdate[$key] = $request[$key];
+            }
+
+            $linkToUpdate->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "link" => $linkToUpdate
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    "success" => false,
+                    "error" => "Invalid operation."
+                ],
+                401
+            );
+        }
     }
 
     /**
@@ -64,8 +110,25 @@ class LinkController extends Controller
      * @param  \App\Models\Link  $link
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Link $link)
+    public function destroy(int $id)
     {
-        //
+        $linkToDelete = Link::find($id);
+
+        if ($linkToDelete) {
+            $linkToDelete->delete();
+
+            return response()->json(
+                ["success" => true],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    "success" => false,
+                    "error" => 'Resource was not found.'
+                ],
+                404
+            );
+        }
     }
 }
