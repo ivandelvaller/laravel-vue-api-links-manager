@@ -16,9 +16,9 @@ use App\Http\Controllers\LinkController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::get('/links', [LinkController::class, 'index']);
 Route::prefix('/link')->group(function() {

@@ -9,11 +9,19 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
-<body>
-    <div id="app">
-        <app></app>
+<body class="h-screen ">
+    <div id="app" class="w-100">
+        <app class="w-100"></app>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

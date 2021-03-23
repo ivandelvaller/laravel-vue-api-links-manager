@@ -37,12 +37,21 @@ class LinkController extends Controller
         $newLink->description = $request['description'];
         $newLink->link = $request['link'];
 
-        $newLink->save();
+        try {
+            $newLink->save();
 
-        return response()->json([
-            "success" => true,
-            "link" => $newLink
-        ], 201);
+            return response()->json([
+                "success" => true,
+                "link" => $newLink
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success" => false,
+                "error" => $th
+            ], 400);
+        }
+
+
     }
 
     /**
