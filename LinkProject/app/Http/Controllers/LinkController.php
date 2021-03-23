@@ -39,13 +39,10 @@ class LinkController extends Controller
 
         $newLink->save();
 
-        return response()->json(
-            [
-                "success" => true,
-                "link" => $newLink
-            ],
-            201
-        );
+        return response()->json([
+            "success" => true,
+            "link" => $newLink
+        ], 201);
     }
 
     /**
@@ -71,13 +68,10 @@ class LinkController extends Controller
                 }
             }
         } else {
-            return response()->json(
-                [
-                    "success" => false,
-                    "error" => 'Resource was not found.'
-                ],
-                404
-            );
+            return response()->json([
+                "success" => false,
+                "error" => 'Resource was not found.'
+            ], 404);
         }
 
         if ($isValidOperation) {
@@ -87,20 +81,15 @@ class LinkController extends Controller
 
             $linkToUpdate->save();
 
-            return response()->json(
-                [
-                    "success" => true,
-                    "link" => $linkToUpdate
-                ]
-            );
+            return response()->json([
+                "success" => true,
+                "link" => $linkToUpdate
+            ], 200);
         } else {
-            return response()->json(
-                [
-                    "success" => false,
-                    "error" => "Invalid operation."
-                ],
-                401
-            );
+            return response()->json([
+                "success" => false,
+                "error" => "Invalid operation."
+            ], 401);
         }
     }
 
@@ -117,18 +106,14 @@ class LinkController extends Controller
         if ($linkToDelete) {
             $linkToDelete->delete();
 
-            return response()->json(
-                ["success" => true],
-                200
-            );
+            return response()->json([
+                "success" => true
+            ], 200);
         } else {
-            return response()->json(
-                [
-                    "success" => false,
-                    "error" => 'Resource was not found.'
-                ],
-                404
-            );
+            return response()->json([
+                "success" => false,
+                "error" => 'Resource was not found.'
+            ], 404);
         }
     }
 }
