@@ -1,54 +1,46 @@
 <template>
-  <div class="w-100 bg-green-600">
+  <div class="container ">
     <Header />
-    <AddLinkForm />
-    <span v-if="links.count === 0">No links to show</span>
-    <link-list v-else v-bind:links="links" />
+    <LinkForm @link-submitted="addLink" :title="'Add a new link'"/>
+    <Links :links="links" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import Header from "./components/header";
-import LinkList from "./components/linkList";
-import LinkListItem from "./components/linkListItem";
-import AddLinkForm from "./components/AddLinkForm";
+import Header from "./components/Header";
+import Links from "./components/Links";
+import LinkForm from "./components/LinkForm";
 
 export default {
   name: "App",
   data() {
     return {
-      links: {},
+      links: [],
+      errors: [],
     };
   },
   components: {
     Header,
-    LinkList,
-    LinkListItem,
-    AddLinkForm,
+    Links,
+    LinkForm,
   },
   methods: {
-    async getAll() {
-      try {
-        const response = await axios.get("api/links");
+    addLink(link) {
+      console.log("Link added", link);
+    },
+    async fetchLinks() {
+      const response = await axios.get("api/links");
 
-        if (response.status !== 200) {
-          throw new Error("No data received.");
-        }
-
-        this.links = {
-            count: response.data.count,
-            linksArray: response.data.links
-        };
-        console.log(this.links);
-      } catch (error) {
-        console.log(error);
+      if (response.status !== 200) {
+        throw new Error("No data received.");
       }
+      return response.data.links;
     },
   },
-  created() {
-    this.getAll();
+  async created() {
+    this.links = await this.fetchLinks();
   },
 };
 </script>

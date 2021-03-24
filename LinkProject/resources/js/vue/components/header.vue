@@ -1,5 +1,5 @@
 <template>
-    <header class="h-50 text-center">
+    <header class="h">
         <div>
             <h1>Links App</h1>
         </div>
