@@ -1,17 +1,17 @@
 <template>
-  <div class="w-full bg-green-700 p-4">
-    <h3 class="w-full text-center text-5x1">{{title}}</h3>
-    <form @submit="onSubmit">
-      <FormGroup 
-        :hasError="errors.link ? true : false" 
-        :errorMessage="errors.link">
+  <div class="w-full p-8 text-green-700 bg-gray-200">
+    <form @submit="onSubmit" class="md:w-80 bg-gray-800 rounded p-4">
+      <FormGroup
+        :hasError="errors.link ? true : false"
+        :errorMessage="errors.link"
+      >
         <label for="link">Link</label>
         <Input />
         <input
           type="text"
           name="link"
           placeholder="Link (required)."
-          class="form-control"
+          class="form-control placeholder-gray-500 placeholder-opacity-75 text-sm"
           v-model.trim="link"
         />
       </FormGroup>
@@ -20,9 +20,8 @@
         <input
           type="text"
           name="title"
-          class="form-control"
+          class="form-control placeholder-gray-500 placeholder-opacity-75 text-sm"
           placeholder="Add a title (required)."
-          ref="inputTitle"
           v-model.trim="title"
         />
         <span v-if="errors.title">{{ errors.title }}</span>
@@ -32,11 +31,10 @@
         <textarea
           type="text"
           name="description"
-          class="form-control"
+          class="form-control placeholder-gray-500 placeholder-opacity-75 text-sm"
           rows="3"
           style="resize: none"
           placeholder="Add a description (required)."
-          ref="inputDescription"
           v-model.trim="description"
         />
         <span v-if="errors.description">{{ errors.description }}</span>
@@ -46,20 +44,25 @@
         <input
           type="text"
           name="thumbnail"
-          class="form-control"
+          class="placeholder-gray-500 placeholder-opacity-75 text-sm"
           placeholder="Add a thumbnail (url)"
-          ref="inputThumbnail"
           v-model.trim="thumbnail"
         />
       </FormGroup>
-      <button type="submit">+</button>
+      <Button class="w-full bg-green-600 rounded py-4">
+        <i
+          class="fas fa-plus-circle text-3xl text-center"
+          style="color: white"
+        ></i>
+      </Button>
     </form>
   </div>
 </template>
 
 <script>
-import FormGroup from './FormGroup';
-import Input from './Input';
+import FormGroup from "./FormGroup";
+import Input from "./Input";
+import Button from "./Button";
 
 export default {
   name: "LinkForm",
@@ -79,7 +82,7 @@ export default {
       description: String,
       thumbnail: String,
     },
-    title: String,
+    titleForm: String,
     editMood: {
       type: Boolean,
       default: false,
@@ -87,13 +90,12 @@ export default {
   },
   components: {
     FormGroup,
-    Input
+    Input,
+    Button,
   },
   methods: {
     onSubmit: function (e) {
       e.preventDefault();
-
-      console.log(this.$refs.inputTitle.checkValidity());
 
       this.errors = {};
 
@@ -143,12 +145,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .form-control {
-    font-size: 1rem;
-    font-family: inherit;
-    padding: 0.5rem 1rem;
-    border-radius: 30px; 
-  }
-</style>

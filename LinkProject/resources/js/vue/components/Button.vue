@@ -1,18 +1,18 @@
 <template>
-  <button @click="$emit('btn-click')">{{ this.textButton }}</button>
+  <button 
+    :class="`bg-${color}-700 hover:`"
+    @click="$emit('btn-click')">
+      <slot></slot>
+    </button>
 </template>
 
 <script>
 export default {
   name: "Button",
   props: {
-    textButton: {
-      type: String,
-      default: "Button",
-    },
     color: {
       type: String,
-      default: "green",
+      default: "grey",
     },
   },
 };

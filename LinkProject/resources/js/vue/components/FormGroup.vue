@@ -20,3 +20,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  input, textarea {
+    font-family: inherit;
+    padding: 0.5rem 1rem;
+  }
+
+  label {
+    margin: 0.5rem 0.9rem;
+  }
+</style>

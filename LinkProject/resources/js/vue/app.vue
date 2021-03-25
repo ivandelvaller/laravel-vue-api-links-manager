@@ -1,8 +1,7 @@
 <template>
-  <div class="container ">
-    <Header />
-    <LinkForm @link-submitted="addLink" :title="'Add a new link'"/>
-    <Links :links="links" />
+  <div class="container">
+    <Header @toggle-add-link="toggleAddLink" />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,6 +18,7 @@ export default {
     return {
       links: [],
       errors: [],
+      showForm: false,
     };
   },
   components: {
@@ -27,6 +27,9 @@ export default {
     LinkForm,
   },
   methods: {
+    toggleAddLink() {
+      this.showForm = !this.showForm;
+    },
     addLink(link) {
       console.log("Link added", link);
     },
@@ -40,7 +43,11 @@ export default {
     },
   },
   async created() {
-    this.links = await this.fetchLinks();
+    try {
+      this.links = await this.fetchLinks();
+    } catch (error) {
+      this.errors.push(error.message);
+    }
   },
 };
 </script>

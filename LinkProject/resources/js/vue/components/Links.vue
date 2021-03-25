@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="p-4 rounded shadow-xl w-full">
     <li v-for="link in links" :key="link.id">
       <Link :link=link />
     </li>
