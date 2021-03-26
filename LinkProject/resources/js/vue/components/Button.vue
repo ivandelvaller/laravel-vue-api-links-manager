@@ -1,5 +1,5 @@
 <template>
-  <button :class="`bg-${color}-700 hover:text-red`" @click="$emit('btn-click')">
+  <button :class="`bg-${color}-700`" @click="$emit('btn-click')">
     <slot></slot>
   </button>
 </template>
@@ -10,7 +10,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: "grey",
+      default: "gray",
     },
   },
 };

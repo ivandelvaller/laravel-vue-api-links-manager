@@ -1,5 +1,5 @@
 <template>
-  <ul class="p-4 rounded shadow-xl w-full">
+  <ul class="p-4 rounded shadow-xl w-full md:h-90 overscroll-auto">
     <li v-for="link in links" :key="link.id">
       <Link
         :link="link"

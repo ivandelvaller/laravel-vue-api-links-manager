@@ -1,8 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container mx-auto">
     <Header />
-    <router-view></router-view>
-    <Footer />
+    <main class="h-96">
+      <router-view></router-view>
+    </main>
+    <!-- <Footer /> -->
   </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   name: "App",
   components: {
     Header,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>

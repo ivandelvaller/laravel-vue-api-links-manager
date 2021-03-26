@@ -7,7 +7,7 @@ import App from './vue/App';
 import Home from './vue/statics/Home';
 import Dashboard from './vue/statics/Dashboard';
 
-import '../css/app.css';
+import '/css/app.css';
 
 Vue.use(VueRouter);
 

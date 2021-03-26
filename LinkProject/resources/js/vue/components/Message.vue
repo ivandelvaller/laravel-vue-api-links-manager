@@ -1,5 +1,5 @@
 <template>
-    <div :class="`bg-${color}-400`">
+    <div :class="`text-${color}-300`">
         <slot></slot>
     </div>
 </template>

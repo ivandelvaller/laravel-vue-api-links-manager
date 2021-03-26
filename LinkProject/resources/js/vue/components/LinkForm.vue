@@ -1,6 +1,6 @@
 <template>
   <div class="w-full text-green-700 bg-gray-200">
-    <form @submit="onSubmit" class="md:w-80 bg-gray-800 rounded p-4">
+    <form @submit="onSubmit" class="w-full bg-gray-800 rounded p-4">
       <FormGroup>
         <label for="link">Link</label>
         <input
@@ -10,7 +10,9 @@
           class="form-control placeholder-gray-500 placeholder-opacity-75 text-sm"
           v-model.trim="link"
         />
-        <span v-if="errors.link">{{ errors.link }}</span>
+        <Message :color="'red'" v-if="errors.link">
+          {{ errors.link }}
+        </Message>
       </FormGroup>
 
       <FormGroup>
@@ -22,7 +24,9 @@
           placeholder="Add a title (required)."
           v-model.trim="title"
         />
-        <span v-if="errors.title">{{ errors.title }}</span>
+        <Message :color="'red'" v-if="errors.title">
+          {{ errors.title }}
+        </Message>
       </FormGroup>
       <FormGroup>
         <label for="description">Description</label>
@@ -35,7 +39,9 @@
           placeholder="Add a description (required)."
           v-model.trim="description"
         />
-        <span v-if="errors.description">{{ errors.description }}</span>
+        <Message :color="'red'" v-if="errors.description">
+          {{ errors.description }}
+        </Message>
       </FormGroup>
       <FormGroup>
         <label for="thumbnail">Thumbnail</label>
@@ -46,11 +52,14 @@
           placeholder="Add a thumbnail (url)"
           v-model.trim="thumbnail"
         />
+        <Message :color="'red'" v-if="errors.thumbnail">
+          {{ errors.thumbnail }}
+        </Message>
       </FormGroup>
 
       <button type="submit" class="w-full bg-green-600 rounded my-4 py-2">
         <i
-          class="fas fa-plus-circle text-3xl text-center hover:bg-red-700"
+          class="fas fa-plus-circle text-3xl text-center"
           style="color: black"
         ></i>
       </button>
@@ -60,24 +69,19 @@
 
 <script>
 import FormGroup from "./FormGroup";
+import Message from "./Message";
 
 export default {
   name: "LinkForm",
   data: function () {
     return {
       errors: {},
-      link: this.editedLink.link 
-        ? this.editedLink.link 
-        : "",
-      title: this.editedLink.title 
-        ? this.editedLink.title 
-        : "",
+      link: this.editedLink.link ? this.editedLink.link : "",
+      title: this.editedLink.title ? this.editedLink.title : "",
       description: this.editedLink.description
         ? this.editedLink.description
         : "",
-      thumbnail: this.editedLink.thumbnail 
-        ? this.editedLink.thumbnail 
-        : "",
+      thumbnail: this.editedLink.thumbnail ? this.editedLink.thumbnail : "",
     };
   },
   props: {
@@ -92,6 +96,7 @@ export default {
   },
   components: {
     FormGroup,
+    Message,
   },
   methods: {
     onSubmit: function (e) {
@@ -114,6 +119,10 @@ export default {
         this.errors.link = "Link is required.";
       } else if (!this.validLink(this.link)) {
         this.errors.link = "Invalid Link.";
+      }
+
+      if (!this.validURL(this.thumbnail)) {
+        this.errors.thumbnail = "Invalid url";
       }
 
       const thereAreErrors = Object.keys(this.errors).length > 0 ? true : false;
@@ -145,6 +154,24 @@ export default {
       }
       return true;
     },
+    validURL: function (url) {
+      const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+
+      if (!url.match(urlRegex)) {
+        return false;
+      }
+      return true;
+    },
   },
 };
 </script>
+
+<style scoped>
+label {
+  padding: 0 0.5rem;
+}
+input,
+textarea {
+  padding: 1rem 0.5rem;
+}
+</style>

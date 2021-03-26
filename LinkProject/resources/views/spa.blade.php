@@ -5,14 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Links</title>
-    <script src="https://kit.fontawesome.com/cffccf5116.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600;1,700&display=swap');
-        body {
-            font-family: 'Rubik', sans-serif;
-        }
-    </style>
+    <script src="https://kit.fontawesome.com/cffccf5116.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

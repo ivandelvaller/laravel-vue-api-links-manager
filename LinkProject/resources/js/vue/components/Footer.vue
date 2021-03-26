@@ -1,6 +1,6 @@
 <template>
-  <footer>
-    <p>Created by Iván Del Valle; Copyright &copy; {{ this.date }}</p>
+  <footer class="bg-gray-800">
+    <p class="w-full text-center text-white py-8 ">Created by Iván Del Valle; Copyright &copy; {{ this.date }}</p>
   </footer>
 </template>
 

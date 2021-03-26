@@ -24,7 +24,7 @@ export default {
 <style scoped>
   input, textarea {
     font-family: inherit;
-    padding: 0.5rem 0;
+    padding: 1rem 2rem;
   }
 
   label {
