@@ -15,8 +15,15 @@ class LinkController extends Controller
     public function index()
     {
         $links = Link::orderBy('created_at', 'ASC');
-
+        if(!$links) {
+            return response()->json([
+                "success" => false,
+                "error" => 'No data was fecthed.'
+            ], 404);
+        }
+        
         return response()->json([
+            "success" => true,
             "count" => $links->count(),
             "links" => $links->get(),
         ], 200);
@@ -108,7 +115,7 @@ class LinkController extends Controller
      * @param  \App\Models\Link  $link
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         $linkToDelete = Link::find($id);
 

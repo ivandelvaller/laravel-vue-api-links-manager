@@ -1,5 +1,5 @@
 <template>
-  <div class="my-3.5 flex flex-col">
+  <div class="flex flex-col">
     <slot></slot>
     <span v-if="hasError">{{errorMessage}}</span>
   </div>
@@ -24,10 +24,10 @@ export default {
 <style scoped>
   input, textarea {
     font-family: inherit;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
   }
 
   label {
-    margin: 0.5rem 0.9rem;
+    margin: 0.5rem 0;
   }
 </style>

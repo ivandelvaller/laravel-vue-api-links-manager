@@ -1,12 +1,8 @@
 <template>
-  <div class="w-full p-8 text-green-700 bg-gray-200">
+  <div class="w-full text-green-700 bg-gray-200">
     <form @submit="onSubmit" class="md:w-80 bg-gray-800 rounded p-4">
-      <FormGroup
-        :hasError="errors.link ? true : false"
-        :errorMessage="errors.link"
-      >
+      <FormGroup>
         <label for="link">Link</label>
-        <Input />
         <input
           type="text"
           name="link"
@@ -14,7 +10,9 @@
           class="form-control placeholder-gray-500 placeholder-opacity-75 text-sm"
           v-model.trim="link"
         />
+        <span v-if="errors.link">{{ errors.link }}</span>
       </FormGroup>
+
       <FormGroup>
         <label for="title">Title</label>
         <input
@@ -49,20 +47,19 @@
           v-model.trim="thumbnail"
         />
       </FormGroup>
-      <Button class="w-full bg-green-600 rounded py-4">
+
+      <button type="submit" class="w-full bg-green-600 rounded my-4 py-2">
         <i
-          class="fas fa-plus-circle text-3xl text-center"
-          style="color: white"
+          class="fas fa-plus-circle text-3xl text-center hover:bg-red-700"
+          style="color: black"
         ></i>
-      </Button>
+      </button>
     </form>
   </div>
 </template>
 
 <script>
 import FormGroup from "./FormGroup";
-import Input from "./Input";
-import Button from "./Button";
 
 export default {
   name: "LinkForm",
@@ -90,12 +87,17 @@ export default {
   },
   components: {
     FormGroup,
-    Input,
-    Button,
   },
   methods: {
+    created: function () {
+      if(this.editMood) {
+        console.log('IS EDIT MOOD');
+      }
+    },
     onSubmit: function (e) {
-      e.preventDefault();
+      if (e) {
+        e.preventDefault();
+      }
 
       this.errors = {};
 

@@ -1,6 +1,8 @@
 <template>
     <main>
-        <h1> Welcome to my home!</h1>
+        <h1> Link Manager 2.0</h1>
+
+        <p>An applicaction powered by Laravel and Vue.js</p>
     </main>
 </template>
 

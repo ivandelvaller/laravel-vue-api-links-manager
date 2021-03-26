@@ -1,9 +1,7 @@
 <template>
-  <button 
-    :class="`bg-${color}-700 hover:`"
-    @click="$emit('btn-click')">
-      <slot></slot>
-    </button>
+  <button :class="`bg-${color}-700 hover:text-red`" @click="$emit('btn-click')">
+    <slot></slot>
+  </button>
 </template>
 
 <script>
