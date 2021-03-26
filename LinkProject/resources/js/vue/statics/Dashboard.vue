@@ -21,6 +21,7 @@
       <LinkForm
         v-if="showForm && !isLoading && editMood"
         @link-submitted="editLink"
+        @on-cancel="cancel"
         :editMood="true"
         :editedLink="selectedLink"
       />
@@ -84,6 +85,11 @@ export default {
     Modal,
   },
   methods: {
+    cancel() {
+      this.editMood = false;
+      this.showForm = false;
+      this.selectedLink = {};
+    },
     toggleAddLink() {
       this.showForm = !this.showForm;
     },

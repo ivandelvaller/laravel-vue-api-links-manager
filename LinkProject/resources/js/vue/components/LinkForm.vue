@@ -63,6 +63,13 @@
           style="color: black"
         ></i>
       </button>
+
+      <button 
+        v-if="editMood"
+        @click="$emit('on-cancel')"
+        type="submit" class="w-full bg-green-600 rounded my-4 py-2">
+        Cancel
+      </button>
     </form>
   </div>
 </template>
