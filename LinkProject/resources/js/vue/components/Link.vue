@@ -28,6 +28,7 @@
         </Button>
 
         <Button
+          v-if="!editMood"
           class="bg-green-800"
           @btn-click="$emit('on-edit-link', link.id)"
         >
@@ -43,11 +44,16 @@ import Button from "./Button";
 
 export default {
   name: "Link",
+  data: function () {
+    return {
+      editMood: false,
+    }
+  },
   props: {
     link: Object,
   },
   components: {
     Button,
-  },
+  }
 };
 </script>

@@ -1,11 +1,5 @@
 <template>
   <main class="mx-2">
-    <!-- <Modal>
-      <div class="bg-transparent">
-        <LinkForm />
-      </div>
-    </Modal> -->
-
     <!-- display form button -->
     <Button
       @click="toggleAddLink"
@@ -16,14 +10,22 @@
       <i v-if="showForm" class="fas fa-times-circle"></i>
     </Button>
 
-    <LinkForm 
+    <LinkForm
+      v-if="showForm && !isLoading && !editMood"
+      :editMood="false"
+      @link-submitted="addLink"
+    />
+
+    <LinkForm
+      v-if="showForm && !isLoading && editMood"
+      @link-submitted="editLink"
       :editMood="true"
-      v-if="showForm && !isLoading" 
-      @link-submitted="addLink" />
+      :editedLink="selectedLink"
+    />
 
     <!-- display list button -->
     <Button
-      v-if="links.length > 0"
+      v-if="links.length > 0 && !editMood"
       @click="toggleList"
       class="bg-gray-200 text-black rounded p-1 w-full"
     >
@@ -31,11 +33,6 @@
       <i v-if="!showList" class="fas fa-plus"></i>
       <i v-if="showList" class="fas fa-times-circle"></i>
     </Button>
-
-    <Message color="red" v-if="errors.hasError">
-      <strong>Error!</strong>
-      <p v-for="(error, index) in errors" :key="index">{{ error.message }}</p>
-    </Message>
 
     <Loading v-if="isLoading" />
 
@@ -45,8 +42,8 @@
 
     <Links
       @on-remove-link="removeLink"
-      @on-edit-link="editLink"
-      v-else-if="showList && !isLoading"
+      @on-edit-link="selectLink"
+      v-else-if="showList && !isLoading && !editMood"
       :links="links"
     />
   </main>
@@ -70,6 +67,8 @@ export default {
       showForm: false,
       showList: false,
       isLoading: false,
+      editMood: false,
+      selectedLink: {},
     };
   },
   components: {
@@ -85,6 +84,15 @@ export default {
     },
     toggleList() {
       this.showList = !this.showList;
+    },
+    selectLink: function (id) {
+      this.selectedLink = this.links.find((link) => link.id === id);
+
+      if (this.selectedLink) {
+        console.log(this.selectedLink);
+        this.showForm = true;
+        this.editMood = true;
+      }
     },
     addLink: async function (link) {
       this.isLoading = true;
@@ -117,8 +125,19 @@ export default {
         this.isLoading = false;
       }
     },
-    editLink: async function (id) {
-      console.log(id);
+    editLink: async function (updates) {
+      this.isLoading = true;
+      try {
+        const response = axios.put(`api/link/${this.selectedLink.id}`, updates);
+        if ((await response).data.success) {
+          this.links = await this.fetchLinks();
+        }
+      } finally {
+        this.showForm = false;
+        this.editMood = false;
+        this.isLoading = false;
+        this.selectedLink = {};
+      }
     },
     fetchLinks: async function () {
       try {

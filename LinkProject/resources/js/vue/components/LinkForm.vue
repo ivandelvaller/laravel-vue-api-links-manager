@@ -66,34 +66,34 @@ export default {
   data: function () {
     return {
       errors: {},
-      link: "",
-      title: "",
-      description: "",
-      thumbnail: "",
+      link: this.editedLink.link 
+        ? this.editedLink.link 
+        : "",
+      title: this.editedLink.title 
+        ? this.editedLink.title 
+        : "",
+      description: this.editedLink.description
+        ? this.editedLink.description
+        : "",
+      thumbnail: this.editedLink.thumbnail 
+        ? this.editedLink.thumbnail 
+        : "",
     };
   },
   props: {
-    task: {
-      link: String,
-      title: String,
-      description: String,
-      thumbnail: String,
-    },
-    titleForm: String,
     editMood: {
       type: Boolean,
       default: false,
+    },
+    editedLink: {
+      type: Object,
+      default: Object,
     },
   },
   components: {
     FormGroup,
   },
   methods: {
-    created: function () {
-      if(this.editMood) {
-        console.log('IS EDIT MOOD');
-      }
-    },
     onSubmit: function (e) {
       if (e) {
         e.preventDefault();
@@ -121,7 +121,7 @@ export default {
         return;
       }
 
-      const newLink = {
+      const link = {
         link: this.link,
         title: this.title,
         description: this.description,
@@ -134,7 +134,8 @@ export default {
         this.description = null;
         this.thumbnail = null;
       }
-      this.$emit("link-submitted", newLink);
+
+      this.$emit("link-submitted", link);
     },
     validLink: function (link) {
       const urlRegex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/gi;
