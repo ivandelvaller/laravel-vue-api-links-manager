@@ -1,26 +1,19 @@
-# Test
+# Link Manager
 
-**Este proyecto sirve para validar las siguientes habilidades:**
+## An application for organizeing your links.
 
-- Laravel (PHP)
-- Vuejs (Javascript)
-- Tailwindcss (HTML y CSS)
-- MySQL
-- Git
+**These are te operations you can do with links:**
 
-**Sigue los siguientes pasos para hacer el test:**
+- CREAD
+- READ
+- UPDATE
+- DELTE
 
-1. Clona el repositorio en tu computadora y crea un branch con tu nombre (trabajaras en este branch)
-2. Crea un proyecto con la ultima version de Laravel dentro de tu branch
-3. Crea un CRUD con Laravel para administrar una lista de videos de youtube (link, thumbnail, titulo y descripcion)
+**Important:**
 
-> Para desarrollar el proyecto tendras que hacer uso de rutas, controladores, modelos, migraciones y vistas en Vuejs, aparte de la funcionalidad tambien se tomara en cuenta el diseño y el tiempo de desarrollo.
+Each link has to have a valid link of YouTube and a valid link for a thumbnmail. 
 
-Al finalizar el test por favor sube tu rama al proyecto en Gitlab y me avisas por correo electrónico.
+YouTube example: "https://www.youtube.com/watch?v=5AWh6Qhp-7s&t=1622s"
 
-Si tienes alguna duda favor de enviar un correo electronico a alfredo@gerontologika.com
-
-¡Suerte!
-
-
+Thumbnail example: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/YouTube_social_white_square_%282017%29.svg/1200px-YouTube_social_white_square_%282017%29.svg.png"
 
